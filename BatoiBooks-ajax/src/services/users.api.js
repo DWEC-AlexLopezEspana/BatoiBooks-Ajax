@@ -43,15 +43,15 @@ async function removeDBUser(idUser) {
 }
 
 async function changeDBUserPassword(idUser, newPassword) {
-    let response = await fetch(`${SERVER}/users/${idUser}/password`, {
-        method: 'PUT',
+    let response = await fetch(`${SERVER}/users/${idUser}`, {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: newPassword })
-    });
+    })
 
     if (!response.ok) throw new Error("Fallo al cambiar la contraseña del usuario");
 
-    return await response.json();
+    return response.json();
 }
 
 
