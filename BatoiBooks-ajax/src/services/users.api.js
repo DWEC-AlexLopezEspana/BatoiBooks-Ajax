@@ -1,14 +1,66 @@
-const SERVER = import.meta.env.VITE_BASE_URL;
+const SERVER = 'http://localhost:3000';
 
-export async function getDBUsers() {
-    const response = await fetch(`${SERVER}/users`);
+async function getDBUsers() {
+    let response = await fetch(`${SERVER}/users`);
     if (!response.ok) throw new Error("Fallo al obtener todos los usuarios");
+    return await response.json();
+}
+
+async function getDBUser(idUser) {
+    let response = await fetch(`${SERVER}/users/${idUser}`);
+    if (!response.ok) throw new Error("Fallo al obtener el usuario por su id");
+    return await response.json();
+}
+async function addDBUser(usuario) {
+    let response = await fetch(`${SERVER}/users/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+    });
+    if (!response.ok) throw new Error("Fallo al añadir el usuario");
+    return response.json();
+
+}
+async function changeDBUsers(usermodif) {
+    let { id } = usermodif;
+    let response = await fetch(`${SERVER}/users/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(usermodif)
+    });
+    if (!response.ok) throw new Error("Fallo al modificar el usuario");
+    return response.json();
+}
+async function removeDBUser(idUser) {
+    let response = await fetch(`${SERVER}/users/${idUser}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    });
+    if (!response.ok) throw new Error("Fallo al borrar el usuario");
     return response.json();
 }
 
-function getDBUser() {
+async function changeDBUserPassword(idUser, newPassword) {
+    let response = await fetch(`${SERVER}/users/${idUser}/password`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: newPassword })
+    });
 
-}
-function changeDBUserPassword() {
+    if (!response.ok) throw new Error("Fallo al cambiar la contraseña del usuario");
 
+    return await response.json();
 }
+
+
+export {
+    getDBUsers,
+    getDBUser,
+    addDBUser,
+    changeDBUsers,
+    removeDBUser,
+    changeDBUserPassword
+};
+
