@@ -76,8 +76,23 @@ export default class Users {
         }
 
     }
+    
+    getUserById(idUser) {
+        try {
+            let usuario = this.data.find(usu => usu.id === idUser);
+            if (!usuario) {
+                throw new Error("Usuario no encontrado");
+            }
+            return new User(usuario.id, usuario.nick, usuario.email, usuario.password);
+        } catch (error) {
+            console.error("Error al cambiar la contraseña del usuario", error);
+            throw error;
+        }
+    }
 
-    async getUserById(idUser) {
+
+
+    /*async getUserById(idUser) {
         try {
             let usuario = await UsersAPI.getDBUser(idUser);
             if(!usuario){
@@ -88,7 +103,7 @@ export default class Users {
             console.error("Error al cambiar la contraseña del usuario", error);
             throw error;
         }
-    }
+    }*/
 
 
 

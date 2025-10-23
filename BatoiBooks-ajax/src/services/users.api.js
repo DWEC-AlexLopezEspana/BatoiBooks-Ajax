@@ -8,7 +8,6 @@ async function getDBUsers() {
 
 async function getDBUser(idUser) {
     let response = await fetch(`${SERVER}/users/${idUser}`);
-    if (!response.ok) throw new Error("Fallo al obtener el usuario por su id");
     return await response.json();
 }
 async function addDBUser(usuario) {
