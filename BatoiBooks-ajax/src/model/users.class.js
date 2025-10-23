@@ -77,25 +77,9 @@ export default class Users {
 
     }
 
-    /*getUserById(idUser) {
+    getUserById(idUser) {
         try {
             let usuario = this.data.find(usu => usu.id === idUser);
-            if (!usuario) {
-                throw new Error("Usuario no encontrado");
-            }
-            return new User(usuario.id, usuario.nick, usuario.email, usuario.password);
-        } catch (error) {
-            console.error("Error al cambiar la contraseña del usuario", error);
-            throw error;
-        }
-    }*/
-
-    async getUserById(idUser) {
-        try {
-            let usuario = await UsersAPI.getDBUser(idUser);
-            if (!usuario) {
-                throw new Error("Usuario no encontrado");
-            }
             return new User(usuario.id, usuario.nick, usuario.email, usuario.password);
         } catch (error) {
             console.error("Error al cambiar la contraseña del usuario", error);
@@ -103,27 +87,24 @@ export default class Users {
         }
     }
 
-    async getUserIndexById(userId) {
-        try {
-            let usuario = await UsersAPI.getDBUser(userId);
-            if(!usuario) throw new Error();
 
-            let indice = this.data.findIndex(user => user.id ===usuario.id);
-            if(indice === -1) throw new Error();
-            return indice; 
-  
+
+    getUserIndexById(userId) {
+        try {
+            let indiceUsuarioId = this.data.findIndex(user => user.id == userId);
+            if (indiceUsuarioId === -1) throw new Error("Error al buscar el indice del Usuario");
+            return indiceUsuarioId;
+
         } catch (error) {
             throw error;
         }
 
     }
 
-    async getUserByNickName(nick) {
+    getUserByNickName(nick) {
         try {
-            let usuarios = await UsersAPI.getDBUsers();
-            let nickUsuario = usuarios.find(niUs => niUs.nick === nick);
-
-            if (!nickUsuario) throw new Error();
+            let nickUsuario = this.data.find(niUs => niUs.nick === nick);
+            if (!nickUsuario) throw new Error("Error al buscar el usuario por su Nick")
             return nickUsuario;
         } catch (error) {
             throw error;
