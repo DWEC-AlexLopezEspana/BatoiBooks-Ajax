@@ -7,9 +7,17 @@ const modulo = new Modules();
 usuario.populate();
 libro.populate();
 modulo.populate();
-modulo.getModuleByCode("0439");
+const booksFromModule5021 = books.booksFromModule(5021);
+    console.log(booksFromModule5021.toString());
 
-console.log(usuario);
+const newBooks = books.booksByStatus('new');
+    console.log(newBooks.toString());
 
+ for (const book of books.data) {
+      book.price = parseFloat((book.price * 1.1).toFixed(2));
+      // Actualizar en la BBDD (opcional según enunciado, pero coherente con persistencia)
+      await books.changeBook(book);
+    }
+    console.log(books.toString());
 
 
