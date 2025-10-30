@@ -103,6 +103,10 @@ export default class Books {
 
     }
 
+    booksByStatus(status){
+        return this.data.filter(lib => lib.status === status);
+    }
+
     averagePriceOfBooks() {
         if (this.data.length === 0) return "0.00 €";
         return (this.data.reduce((total, libprice) => total += libprice.price, 0) / this.data.length).toFixed(2) + " €";
