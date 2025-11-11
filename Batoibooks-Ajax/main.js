@@ -1,8 +1,12 @@
 import { Controller } from './src/controller/controller.js';
-
-
+import logoBatoi from './public/logoBatoi.png';
 
 document.querySelector('#app').innerHTML = `
+  <div>
+    <a href="https://vitejs.dev" target="_blank">
+      <img src="${logoBatoi}" class="logo" alt="Batoi Logo"/>
+    </a>
+    <h1>BatoiBooks</h1>
    <nav>
       <ul>
         <li><a href="#list">Ver Libros</a></li>
@@ -81,6 +85,7 @@ document.querySelector('#app').innerHTML = `
     <footer>
       <p>Alex Lopez España</p>
     </footer>
+  <div>
 `
 
 document.addEventListener('DOMContentLoaded', () => {

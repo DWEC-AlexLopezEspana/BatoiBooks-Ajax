@@ -1,5 +1,5 @@
 import User from "./user.class.js";
-import * as UsersAPI from '../services/users.api.js';
+import * as UsersAPI from '../api/users.api.js';
 export default class Users {
     constructor() {
         this.data = [];
