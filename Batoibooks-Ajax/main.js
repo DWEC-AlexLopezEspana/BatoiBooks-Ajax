@@ -20,7 +20,6 @@ document.querySelector('#app').innerHTML = `
     </div>
 
     <main>
-      <div id="list"></div>
       <div id="remove">
         <label for="book-id-remove">ID del libro a eliminar:</label>
         <input
@@ -78,8 +77,8 @@ document.querySelector('#app').innerHTML = `
         </form>
       </div>
       <div id="about">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
       </div>
+      <div id="list"></div>
     </main>
 
     <footer>

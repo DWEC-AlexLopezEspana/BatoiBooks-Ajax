@@ -11,12 +11,12 @@ export class Controller {
             usuarios: new Usuarios()
         };
         this.view = new View();
-
     }
 
     async init() {
         this.view.setBookSubmitHandler(this.handleSubmitBook.bind(this));
         this.view.setBookRemoveHandler(this.handleRemoveBook.bind(this));
+
         try {
             await Promise.all([
                 this.model.libros.populate(),
@@ -27,19 +27,18 @@ export class Controller {
             this.view.renderMessage("Error", error);
             return;
         }
-        this.view.renderModulesInSelect(this.model.modulos.data);
-        this.model.books.data.foreach(book=> this.view.renderNewBook(book));
 
+        this.view.renderModulesInSelect(this.model.modulos.data);
+        this.model.libros.data.forEach(book => this.view.renderNewBook(book));
+    }
+
+    handleSubmitBook(libro) {
+        console.log("handleSubmitBook");
+        console.log("[Controller] ✅ Libro recibido:", libro);
+    }
+
+    handleRemoveBook(libro) {
+        console.log("handleRemoveBook");
+        console.log("[Controller] 🗑️ Borrar libro ID:", libro);
     }
 }
-
-function handleSubmitBook(libro) {
-    console.log("handleSubmitBook");
-
-}
-
-function handleRemoveBook(libro) {
-    console.log("handleRemoveBook");
-
-}
-
