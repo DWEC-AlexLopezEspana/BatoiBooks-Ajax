@@ -1,4 +1,4 @@
-import { Controller } from './src/controller/controller.js';
+import Controller from './src/controller/controller.class';
 import logoBatoi from './public/logoBatoi.png';
 
 document.querySelector('#app').innerHTML = `
@@ -15,7 +15,7 @@ document.querySelector('#app').innerHTML = `
       </ul>
     </nav>
 
-    <div class="messages">
+    <div id="messages" class="messages">
       <p>Abre la consola para ver el funcionamiento de la aplicación.</p>
     </div>
 
@@ -88,6 +88,6 @@ document.querySelector('#app').innerHTML = `
 `
 
 document.addEventListener('DOMContentLoaded', () => {
-  const myController = new Controller();
-  myController.init();
-});
+  const myController = new Controller()
+  myController.init()
+})

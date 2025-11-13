@@ -1,4 +1,4 @@
-import * as ModulosApi from '../api/modules.api.js';
+import * as ModulosApi from '../services/modules.api.js';
 import Module from './module.class.js';
 export default class Modules {
     constructor() {

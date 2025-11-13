@@ -1,4 +1,4 @@
-import * as BookApi from '../api/books.api.js';
+import * as BookApi from '../services/books.api.js';
 import Book from './book.class.js';
 export default class Books {
     constructor() {
