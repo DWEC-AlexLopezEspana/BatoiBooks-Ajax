@@ -86,16 +86,35 @@ export default class View {
     }
 
     const alertDiv = document.createElement("div");
-    alertDiv.className = `alert ${type.toLowerCase().trim()}`;
+
+
+    alertDiv.classList.add(type.toLowerCase().trim());
+    alertDiv.classList.add("alert");
+    alertDiv.classList.add(`alert-${type.toLowerCase().trim()}`);
+    alertDiv.classList.add("alert-dismissible");
+
+
+    if(type.toLowerCase().trim() === "info"){
+        alertDiv.classList.add("error");
+    }
+    
     alertDiv.setAttribute("role", "alert");
 
-    alertDiv.innerHTML = `${message} <button type="button" class="x">x</button>`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+    `;
+
     alertDiv.querySelector("button").onclick = () => alertDiv.remove();
 
     this.messages.appendChild(alertDiv);
 
-    
+
+    if (type.toLowerCase().trim() !== "error") {
+        setTimeout(() => alertDiv.remove(), 3000);
+    }
 }
+
 
 
 

@@ -10,6 +10,12 @@ async function getDBUser(idUser) {
     let response = await fetch(`${SERVER}/users/${idUser}`);
     return await response.json();
 }
+
+async function getUserById(idUser) {
+    let response = await fetch(`${SERVER}/users/${idUser}`);
+    if (!response.ok) throw new Error("Usuario no encontrado");
+    return await response.json();
+}
 async function addDBUser(usuario) {
     let response = await fetch(`${SERVER}/users/`, {
         method: 'POST',
@@ -56,6 +62,7 @@ async function changeDBUserPassword(idUser, newPassword) {
 
 export {
     getDBUsers,
+    getUserById,
     getDBUser,
     addDBUser,
     changeDBUsers,

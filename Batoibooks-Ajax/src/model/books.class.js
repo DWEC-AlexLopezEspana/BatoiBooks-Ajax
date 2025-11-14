@@ -31,9 +31,11 @@ export default class Books {
 
     async removeBook(idLibro) {
         try {
+            const libro = this.data.find(lib=> lib.id === idLibro);
             await BookApi.removeDBBook(idLibro);
             this.data = this.data.filter(libro => libro.id !== idLibro);
             console.log("Libro borrado");
+            return libro;
         } catch (error) {
             console.log("Error al borrar el libro", error);
             throw error;

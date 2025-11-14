@@ -77,9 +77,9 @@ export default class Users {
 
     }
 
-    getUserById(idUser) {
+    async getUserById(idUser) {
         try {
-            let usuario = this.data.find(usu => usu.id === idUser);
+            let usuario = await UsersAPI.getUserById(idUser);
             return new User(usuario.id, usuario.nick, usuario.email, usuario.password);
         } catch (error) {
             console.error("Error al cambiar la contraseña del usuario", error);

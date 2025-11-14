@@ -39,22 +39,23 @@ export default class Controller {
         if (!Number.isInteger(pages) || pages < 0 ||
             !Number.isFinite(price) || price < 0) {
             this.view.renderMessage("error", "Datos inválidos");
-            return;
+            return false;
         }
         try {
             const nuevoLibro = await this.model.libros.addBook(libro);
 
             if (!nuevoLibro) {
                 this.view.renderMessage("error", "Error al añadir el libro");
-                return;
+                return false;
             }
 
             this.view.renderNewBook(nuevoLibro);
             this.view.renderMessage("info", "Libro añadido correctamente");
+            return true;
 
         } catch (error) {
             this.view.renderMessage("error", error);
-            return;
+            return false;
         }
 
     }
