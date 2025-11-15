@@ -65,6 +65,7 @@ export default class View {
 
         div.innerHTML = `
         <h3>Módulo: ${prod.moduleCode} </h3>
+        <p class="book-id"> ID: ${prod.id}</p>
         <h4>${prod.title || prod.publisher}</h4>
         <p>${prod.pages} páginas</p>
         <p>Estado: ${prod.state}</p>
@@ -97,7 +98,7 @@ export default class View {
     if(type.toLowerCase().trim() === "info"){
         alertDiv.classList.add("error");
     }
-    
+
     alertDiv.setAttribute("role", "alert");
 
     alertDiv.innerHTML = `
