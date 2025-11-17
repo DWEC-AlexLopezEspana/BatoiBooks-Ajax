@@ -2,7 +2,7 @@ export default class View {
     constructor() {
         this.contenedorLibros = document.getElementById("list");
         this.form = document.getElementById("form");
-        this.SeleccionModulos = document.getElementById("moduleId");
+        this.SeleccionModulos = document.getElementById("module-code");
         this.messages = document.getElementById("messages");
 
     }
