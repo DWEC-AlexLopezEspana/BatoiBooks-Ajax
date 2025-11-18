@@ -34,10 +34,6 @@ document.querySelector('#app').innerHTML = `
       <div id="form">
         <form>
           <div>
-            <label for="title">Título:</label>
-            <input type="text" id="title" name="title" required />
-          </div>
-          <div>
             <label for="editorial">Editorial:</label>
             <input type="text" id="editorial" name="editorial" required />
           </div>

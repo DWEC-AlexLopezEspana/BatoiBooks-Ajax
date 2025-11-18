@@ -14,8 +14,8 @@ export default class View {
             const dato ={
             id: document.getElementById("id")?.value,
             userId: document.getElementById("userId")?.value,
-            moduleCode : document.querySelector("module-code")?.value,
-            publisher : document.getElementById("publisher")?.value,
+            moduleCode : document.querySelector("#module-code")?.value,
+            publisher : document.getElementById("editorial")?.value,
             price : document.getElementById("price")?.value,
             pages : document.getElementById("pages")?.value,
             status : document.querySelector('input[name="status"]:checked')?.value,
@@ -33,7 +33,7 @@ export default class View {
         if (!this.contenedorLibros) return;
         const btn = document.getElementById("btnRemove");
 
-        if(!this.btn) return;
+        if(!btn) return;
         
         btn.addEventListener("click", () => {
             const idToRemove = document.getElementById("book-id-remove")?.value;
