@@ -11,19 +11,19 @@ export default class View {
         if (!this.form) return;
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const idBook = document.getElementById("id").value;
-            const userId = document.getElementById("userId").value;
-            const moduleCode = document.getElementById("moduleCode").value;
-            const title = document.getElementById("title").value;
-            const publisher = document.getElementById("publisher").value;
-            const price = document.getElementById("price").value;
-            const pages = document.getElementById("pages").value;
-            const state = document.getElementById("state").value;
-            const photo = document.getElementById("photo").value;
-            const comments = document.getElementById("comments").value;
-            const sell = document.getElementById("sell").checked;
-            const soldDate = document.getElementById("soldDate").value;
-            callback({ idBook, userId, moduleCode, title, publisher, price, pages, state, sell, photo, comments, soldDate });
+            const dato ={
+            id: document.getElementById("id")?.value,
+            userId: document.getElementById("userId")?.value,
+            moduleCode : document.querySelector("module-code")?.value,
+            publisher : document.getElementById("publisher")?.value,
+            price : document.getElementById("price")?.value,
+            pages : document.getElementById("pages")?.value,
+            status : document.querySelector('input[name="status"]:checked')?.value,
+            photo : document.getElementById("photo")?.value,
+            comments : document.getElementById("comments")?.value,
+            soldDate : document.getElementById("soldDate")?.value,
+            };
+            callback(dato);
 
         });
 
@@ -31,18 +31,19 @@ export default class View {
 
     setBookRemoveHandler(callback) {
         if (!this.contenedorLibros) return;
+        const btn = document.getElementById("btnRemove");
 
-        this.contenedorLibros.addEventListener("click", (e) => {
-            const btn = e.target;
-            if (btn.tagName === "BUTTON" && btn.dataset.action === "remove") {
-                const idBook = Number(btn.dataset.id);
-                callback(idBook);
-            }
+        if(!this.btn) return;
+        
+        btn.addEventListener("click", () => {
+            const idToRemove = document.getElementById("book-id-remove")?.value;
+            console.log("Libro que quiero borrar"+idToRemove);
+            callback(idToRemove);
         });
     }
 
 
-    renderModulesInSelect(modulos) {//
+    renderModulesInSelect(modulos) {
         if (!this.SeleccionModulos) return;
         this.SeleccionModulos.innerHTML = '<option value="">— Selecciona —</option>';
         modulos.forEach(m => {
@@ -66,55 +67,54 @@ export default class View {
         div.innerHTML = `
         <h3>Módulo: ${prod.moduleCode} </h3>
         <p class="book-id"> ID: ${prod.id}</p>
-        <h4>${prod.title || prod.publisher}</h4>
+        <h4>${prod.publisher}</h4>
         <p>${prod.pages} páginas</p>
-        <p>Estado: ${prod.state}</p>
+        <p>Estado: ${prod.status}</p>
         <p>${vendidoText}</p>
         <p>${Number(prod.price).toFixed(2)} €</p>
-        <button data-action="remove" data-id="${prod.id}">Eliminar</button>
         `;
         this.contenedorLibros.appendChild(div);
     }
 
     renderMessage(type, message) {
-    if (!this.messages) {
-        this.messages = document.getElementById("messages");
         if (!this.messages) {
-            this.messages = document.createElement("div");
-            this.messages.id = "messages";
-            document.body.appendChild(this.messages);
+            this.messages = document.getElementById("messages");
+            if (!this.messages) {
+                this.messages = document.createElement("div");
+                this.messages.id = "messages";
+                document.body.appendChild(this.messages);
+            }
         }
-    }
 
-    const alertDiv = document.createElement("div");
-
-
-    alertDiv.classList.add(type.toLowerCase().trim());
-    alertDiv.classList.add("alert");
-    alertDiv.classList.add(`alert-${type.toLowerCase().trim()}`);
-    alertDiv.classList.add("alert-dismissible");
+        const alertDiv = document.createElement("div");
 
 
-    if(type.toLowerCase().trim() === "info"){
-        alertDiv.classList.add("error");
-    }
+        alertDiv.classList.add(type.toLowerCase().trim());
+        alertDiv.classList.add("alert");
+        alertDiv.classList.add(`alert-${type.toLowerCase().trim()}`);
+        alertDiv.classList.add("alert-dismissible");
 
-    alertDiv.setAttribute("role", "alert");
 
-    alertDiv.innerHTML = `
+        if (type.toLowerCase().trim() === "info") {
+            alertDiv.classList.add("error");
+        }
+
+        alertDiv.setAttribute("role", "alert");
+
+        alertDiv.innerHTML = `
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
     `;
 
-    alertDiv.querySelector("button").onclick = () => alertDiv.remove();
+        alertDiv.querySelector("button").onclick = () => alertDiv.remove();
 
-    this.messages.appendChild(alertDiv);
+        this.messages.appendChild(alertDiv);
 
 
-    if (type.toLowerCase().trim() !== "error") {
-        setTimeout(() => alertDiv.remove(), 3000);
+        if (type.toLowerCase().trim() !== "error") {
+            setTimeout(() => alertDiv.remove(), 3000);
+        }
     }
-}
 
 
 

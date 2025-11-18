@@ -67,14 +67,6 @@ export default class Books {
             console.error("Error al buscar el libro por su ID:", error);
             throw new Error(error);
         }
-        /*        try {
-                    let libro = await BookApi.getDBBook(idLibro);
-                    if (!libro) throw new Error();
-                    return new Book(libro);
-                } catch (error) {
-                    console.error("Error al buscar el libro por su ID:", error);
-                    throw new Error(error);
-                }*/
     }
 
 

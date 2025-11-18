@@ -18,18 +18,18 @@ document.querySelector('#app').innerHTML = `
     <div id="messages" class="messages">
       <p>Abre la consola para ver el funcionamiento de la aplicación.</p>
     </div>
-
+      <div id="list"></div>
     <main>
       <div id="remove">
         <label for="book-id-remove">ID del libro a eliminar:</label>
         <input
-          type="number"
+          type="text"
           id="book-id-remove"
           name="bookId"
           required
           min="1"
         />
-        <button type="button">Eliminar libro</button>
+        <button type="button" id="btnRemove">Eliminar libro</button>
       </div>
       <div id="form">
         <form>
@@ -58,7 +58,7 @@ document.querySelector('#app').innerHTML = `
           </div>
           <div>
             <label for="moduleId">Módulo:</label>
-            <select id="moduleId" name="moduleId" required></select>
+            <select id="module-code" name="moduleId" required></select>
           </div>
           <div>
             <label>Estado:</label>
@@ -72,13 +72,12 @@ document.querySelector('#app').innerHTML = `
             <label for="comments">Comentarios:</label>
             <textarea id="comments" name="comments"></textarea>
           </div>
-          <button type="submit">Guardar</button>
+          <button type="submit" id="btnGuardar">Guardar</button>
           <button type="reset">Reset</button>
         </form>
       </div>
       <div id="about">
       </div>
-      <div id="list"></div>
     </main>
 
     <footer>
