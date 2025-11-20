@@ -11,17 +11,17 @@ export default class View {
         if (!this.form) return;
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const dato ={
-            id: document.getElementById("id")?.value,
-            userId: document.getElementById("userId")?.value,
-            moduleCode : document.querySelector("#module-code")?.value,
-            publisher : document.getElementById("editorial")?.value,
-            price : document.getElementById("price")?.value,
-            pages : document.getElementById("pages")?.value,
-            status : document.querySelector('input[name="status"]:checked')?.value,
-            photo : document.getElementById("photo")?.value,
-            comments : document.getElementById("comments")?.value,
-            soldDate : document.getElementById("soldDate")?.value,
+            const dato = {
+                id: document.getElementById("id")?.value,
+                userId: document.getElementById("userId")?.value,
+                moduleCode: document.querySelector("#module-code")?.value,
+                publisher: document.getElementById("editorial")?.value,
+                price: document.getElementById("price")?.value,
+                pages: document.getElementById("pages")?.value,
+                status: document.querySelector('input[name="status"]:checked')?.value,
+                photo: document.getElementById("photo")?.value,
+                comments: document.getElementById("comments")?.value,
+                soldDate: document.getElementById("soldDate")?.value,
             };
             callback(dato);
 
@@ -33,11 +33,11 @@ export default class View {
         if (!this.contenedorLibros) return;
         const btn = document.getElementById("btnRemove");
 
-        if(!btn) return;
-        
+        if (!btn) return;
+
         btn.addEventListener("click", () => {
             const idToRemove = document.getElementById("book-id-remove")?.value;
-            console.log("Libro que quiero borrar"+idToRemove);
+            console.log("Libro que quiero borrar" + idToRemove);
             callback(idToRemove);
         });
     }
@@ -53,6 +53,18 @@ export default class View {
             this.SeleccionModulos.appendChild(opt);
         });
     }
+
+    resetForm() {
+        const formReset = document.getElementById("btnReset");
+
+        if(!formReset) return;
+
+        formReset.addEventListener("click", ()=>{
+            this.form.reset();
+            
+        })
+    }
+
 
     renderNewBook(prod) {
         if (!this.contenedorLibros) return;

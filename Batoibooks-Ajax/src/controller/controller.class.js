@@ -78,4 +78,9 @@ export default class Controller {
             return false;
         }
     }
+
+    handleResetForm(){
+        this.view.resetForm();
+
+    }
 }

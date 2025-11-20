@@ -69,7 +69,7 @@ document.querySelector('#app').innerHTML = `
             <textarea id="comments" name="comments"></textarea>
           </div>
           <button type="submit" id="btnGuardar">Guardar</button>
-          <button type="reset">Reset</button>
+          <button type="reset" id="btnReset">Reset</button>
         </form>
       </div>
       <div id="about">
