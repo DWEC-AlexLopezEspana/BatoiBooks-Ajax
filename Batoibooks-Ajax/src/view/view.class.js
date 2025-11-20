@@ -4,6 +4,7 @@ export default class View {
         this.form = document.getElementById("form");
         this.SeleccionModulos = document.getElementById("module-code");
         this.messages = document.getElementById("messages");
+        const btnEdit = document.getElementById("edit");
 
     }
 
@@ -29,17 +30,16 @@ export default class View {
 
     }
 
+
     setBookRemoveHandler(callback) {
-        if (!this.contenedorLibros) return;
-        const btn = document.getElementById("btnRemove");
+        this.contenedorLibros?.addEventListener("click", (e)=>{
+        const btnRemove = e.target.closest(".delete");
+        if (!btnRemove) return;
+            const idLibro = btnRemove.dataset.id
+            callback(idLibro);
+        })
+        
 
-        if (!btn) return;
-
-        btn.addEventListener("click", () => {
-            const idToRemove = document.getElementById("book-id-remove")?.value;
-            console.log("Libro que quiero borrar" + idToRemove);
-            callback(idToRemove);
-        });
     }
 
 
@@ -57,11 +57,10 @@ export default class View {
     resetForm() {
         const formReset = document.getElementById("btnReset");
 
-        if(!formReset) return;
+        if (!formReset) return;
 
-        formReset.addEventListener("click", ()=>{
+        formReset.addEventListener("click", () => {
             this.form.reset();
-            
         })
     }
 
@@ -83,8 +82,19 @@ export default class View {
         <p>${prod.pages} páginas</p>
         <p>Estado: ${prod.status}</p>
         <p>${vendidoText}</p>
-        <p>${Number(prod.price).toFixed(2)} €</p>
+        <p class="precio">${Number(prod.price).toFixed(2)} €</p>
+        <button class="shopping" data-id="${prod.id}">
+            <span class="material-icons">add_shopping_cart</span>
+        </button>
+        <button class="edit" data-id="${prod.id}">
+            <span class="material-icons">edit</span>
+        </button>
+        <button class="delete" data-id="${prod.id}">
+            <span class="material-icons">delete</span>
+        </button>
         `;
+       
+
         this.contenedorLibros.appendChild(div);
     }
 
@@ -127,6 +137,8 @@ export default class View {
             setTimeout(() => alertDiv.remove(), 3000);
         }
     }
+
+
 
 
 

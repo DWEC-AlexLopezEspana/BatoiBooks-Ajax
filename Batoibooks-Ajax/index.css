@@ -96,6 +96,10 @@ form {
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
+.divOculto{
+ display: none;
+}
+
 form label {
   font-weight: 600;
   margin-bottom: 0.3rem;
@@ -152,12 +156,23 @@ form button[type="reset"]:hover {
   box-shadow: 0 6px 18px rgba(185,28,28,0.4);
 }
 
+.tituloForm{
+  text-align: center;
+}
+
+.precio{
+  font-weight: bold;
+  color:rgba(0, 0, 255, 0.788);
+  font-size: 18px;
+}
+
 /* ====== LISTA DE LIBROS ====== */
 #list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.8rem;
   margin-top: 2rem;
+  margin-bottom: 1.8rem;
 }
 
 .card {
@@ -200,7 +215,6 @@ form button[type="reset"]:hover {
 .card button {
   padding: 0.6rem 1.5rem;
   border: none;
-  background-color: #ef4444;
   color: white;
   border-radius: 12px;
   cursor: pointer;
@@ -209,8 +223,26 @@ form button[type="reset"]:hover {
   margin-top: 12px;
 }
 
-.card button:hover {
-  background-color: #b91c1c;
+.shopping{
+  background-color: rgb(120, 194, 219);
+}
+
+.shopping:hover {
+  box-shadow: 0 6px 18px rgba(28, 122, 185, 0.4);
+}
+
+.edit{
+  background-color: rgb(94, 228, 94);
+}
+
+.edit:hover {
+  box-shadow: 0 6px 18px rgba(59, 185, 28, 0.4);
+}
+
+.delete{
+  background-color: lightcoral;
+}
+.delete:hover {
   box-shadow: 0 6px 18px rgba(185,28,28,0.4);
 }
 

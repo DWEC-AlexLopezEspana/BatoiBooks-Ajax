@@ -19,20 +19,13 @@ document.querySelector('#app').innerHTML = `
       <p>Abre la consola para ver el funcionamiento de la aplicación.</p>
     </div>
       <div id="list"></div>
-    <main>
-      <div id="remove">
-        <label for="book-id-remove">ID del libro a eliminar:</label>
-        <input
-          type="text"
-          id="book-id-remove"
-          name="bookId"
-          required
-          min="1"
-        />
-        <button type="button" id="btnRemove">Eliminar libro</button>
-      </div>
       <div id="form">
         <form>
+            <h2 class="tituloForm">AÑADIR LIBRO</h2>
+            <div class="divOculto">
+              <label for="id">ID Libro:</label>
+              <input type="text" id="idLibroBorrado" name="idLibroBorrado"/>
+            </div>
           <div>
             <label for="editorial">Editorial:</label>
             <input type="text" id="editorial" name="editorial" required />

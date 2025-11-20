@@ -2,13 +2,15 @@ import View from '../view/view.class.js';
 import Books from '../model/books.class.js';
 import Module from '../model/modules.class.js';
 import Usuarios from '../model/users.class.js';
+import Card from '../model/cart.class.js';
 
 export default class Controller {
     constructor() {
         this.model = {
             libros: new Books(),
             modulos: new Module(),
-            usuarios: new Usuarios()
+            usuarios: new Usuarios(),
+            card: new Card()
         };
         this.view = new View();
     }
@@ -21,7 +23,8 @@ export default class Controller {
             await Promise.all([
                 this.model.libros.populate(),
                 this.model.modulos.populate(),
-                this.model.usuarios.populate()
+                this.model.usuarios.populate(),
+                this.model.card.populate()
             ]);
         } catch (error) {
             this.view.renderMessage("error", error);
@@ -68,7 +71,12 @@ export default class Controller {
                 this.view.renderMessage("error", "El libro no existe");
                 return false;
             }
+            const libroCarrito =  this.model.card.getBookById(idLibro);                
+            if(libroCarrito.id) this.model.card.removeItem(idLibro);
+            
             const lib = this.view.contenedorLibros.querySelector(`[data-id="${String(idLibro)}"]`);
+
+
 
             if (lib) lib.remove();
             this.view.renderMessage("info", "Libro eliminado correctamente");
