@@ -11,16 +11,16 @@ export default class Card {
 
     async getBookById(idLibro) {
         const libro = this.data.find(lib => lib.id === idLibro)
-
         return libro?? {};
     }
 
     async addItem(libro) {
-        if (this.getBookById(libro.id).id) {
+
+        const libroExiste = await this.getBookById(libro.id);
+        if (libroExiste.id) {
             throw new Error(`El libro con id ${libro.id} ya está en el carrito`);
         }
-        const copiaLibro = { ...libro };
-        this.data.push(copiaLibro);
+        this.data.push({ ...libro });
     }
 
     async removeItem(idLibro) {
@@ -38,7 +38,7 @@ export default class Card {
             return "El carrito está vacío";
         }
         return this.data.map(libro =>
-            `- Módulo ${item.moduleCode} (${item.publisher}) — ${item.price} € — ID: ${item.id}`
+            `- Módulo ${libro.moduleCode} (${libro.publisher}) — ${libro.price} € — ID: ${libro.id}`
         ).join('\n');
     }
 }

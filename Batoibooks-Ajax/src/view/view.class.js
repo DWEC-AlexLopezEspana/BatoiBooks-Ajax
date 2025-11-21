@@ -32,16 +32,38 @@ export default class View {
 
 
     setBookRemoveHandler(callback) {
-        this.contenedorLibros?.addEventListener("click", (e)=>{
-        const btnRemove = e.target.closest(".delete");
-        if (!btnRemove) return;
+        this.contenedorLibros?.addEventListener("click", (e) => {
+            const btnRemove = e.target.closest(".delete");
+            if (!btnRemove) return;
             const idLibro = btnRemove.dataset.id
             callback(idLibro);
         })
-        
+
 
     }
 
+    renderSubmitShoppingCart(callback) {
+        this.contenedorLibros?.addEventListener("click", (e) => {
+            const btnAddCart = e.target.closest(".shopping");
+            if (!btnAddCart) return;
+            const idLibro = btnAddCart.dataset.id;
+            callback(idLibro);
+        })
+
+
+    }
+
+    renderEditBook(callback) {
+        this.contenedorLibros?.addEventListener("click", (e) => {
+            const btnAddCart = e.target.closest(".edit");
+            console.log("Editando Libro");
+            if (!btnAddCart) return;
+            const idLibro = btnAddCart.dataset.id;
+            callback(idLibro);
+        })
+
+
+    }
 
     renderModulesInSelect(modulos) {
         if (!this.SeleccionModulos) return;
@@ -53,6 +75,8 @@ export default class View {
             this.SeleccionModulos.appendChild(opt);
         });
     }
+
+
 
     resetForm() {
         const formReset = document.getElementById("btnReset");
@@ -93,7 +117,7 @@ export default class View {
             <span class="material-icons">delete</span>
         </button>
         `;
-       
+
 
         this.contenedorLibros.appendChild(div);
     }

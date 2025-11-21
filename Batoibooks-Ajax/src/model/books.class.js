@@ -64,7 +64,7 @@ export default class Books {
             if (!libro) throw new Error();
             return new Book(libro);
         } catch (error) {
-            console.error("Error al buscar el libro por su ID:", error);
+            console.error("Error al buscar el libro por su ID:", idLibro);
             throw new Error(error);
         }
     }
