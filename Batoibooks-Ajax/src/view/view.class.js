@@ -4,7 +4,15 @@ export default class View {
         this.form = document.getElementById("form");
         this.SeleccionModulos = document.getElementById("module-code");
         this.messages = document.getElementById("messages");
-        const btnEdit = document.getElementById("edit");
+        this.idOculta = document.getElementById("idLibroBorrado");
+        this.editorial = document.getElementById("editorial");
+        this.pages = document.getElementById("pages");
+        this.price = document.getElementById("price");
+        this.status = document.querySelector('input[name="status"]:checked')?.value;
+        this.comments = document.getElementById("comments");
+        this.textoForm = document.getElementById("textoForm");
+        this.formReset = document.getElementById("btnReset");
+        this.formGuarda = document.getElementById("btnGuarda");
 
     }
 
@@ -55,14 +63,26 @@ export default class View {
 
     renderEditBook(callback) {
         this.contenedorLibros?.addEventListener("click", (e) => {
-            const btnAddCart = e.target.closest(".edit");
-            console.log("Editando Libro");
-            if (!btnAddCart) return;
-            const idLibro = btnAddCart.dataset.id;
+            const btnEdit = e.target.closest(".edit");
+
+            if (!btnEdit) return;
+            const idLibro = btnEdit.dataset.id;
             callback(idLibro);
         })
 
 
+    }
+    obtenerDatosFormulario(libro) {
+        console.log("Libro ha entrado a editar y el libro es el siguiente: " + libro);
+        this.textoForm.textContent = "ACTUALIZAR LIBRO";
+        this.idOculta.value = libro.id;
+        this.editorial.value = libro.publisher;
+        this.pages.value = libro.pages || 0;
+        this.price.value = libro.price || 0;
+        this.SeleccionModulos.value = libro.moduleCode;
+        this.comments.value = libro.comments;
+        const radio = this.form.querySelector(`input[name="status"][value="${libro.status}"]`);
+        if (radio) radio.checked = true;
     }
 
     renderModulesInSelect(modulos) {
@@ -79,8 +99,6 @@ export default class View {
 
 
     resetForm() {
-        const formReset = document.getElementById("btnReset");
-
         if (!formReset) return;
 
         formReset.addEventListener("click", () => {
@@ -88,18 +106,45 @@ export default class View {
         })
     }
 
+    resetGuarda() {
+        formGuarda.addEventListener("click", () =>{
+            this.form.reset();
+        })
+    }
+
+    restablecerVacioForm() {
+        console.log("Ha entrado a borrar los datos")
+        this.form.reset();
+
+        this.idOculta.value = "";
+
+        this.editorial.value = "";
+        this.pages.value = "";
+        this.price.value = "";
+        this.SeleccionModulos.value = "";
+
+        const statusRadios = document.querySelectorAll('input[name="status"]');
+        statusRadios.forEach(radio => radio.checked = false);
+
+        this.comments.value = "";
+
+        this.textoForm.textContent = "AÑADIR LIBRO";
+
+        console.log("Se ha vaciado todo");
+
+    }
+
 
     renderNewBook(prod) {
-        if (!this.contenedorLibros) return;
-        const div = document.createElement("div");
-        div.className = "card";
-        div.dataset.id = prod.id;
+        if (!this.contenedorLibros || !prod.id) return;
+
+        const existe = this.contenedorLibros.querySelector(`[data-id="${prod.id}"]`);
 
         const vendidoText = prod.soldDate
             ? `Vendido el ${new Date(prod.soldDate).toLocaleDateString()}`
             : "En venta";
 
-        div.innerHTML = `
+        const html = `
         <h3>Módulo: ${prod.moduleCode} </h3>
         <p class="book-id"> ID: ${prod.id}</p>
         <h4>${prod.publisher}</h4>
@@ -118,8 +163,18 @@ export default class View {
         </button>
         `;
 
+        if (existe) {
+            console.log("Entra para actualizar datos del libro y haber si borra");
+            existe.innerHTML = html;
+        } else {
+            const div = document.createElement("div");
+            div.className = "card";
+            div.dataset.id = prod.id;
+            div.innerHTML = html;
+            this.contenedorLibros.appendChild(div);
 
-        this.contenedorLibros.appendChild(div);
+        }
+
     }
 
     renderMessage(type, message) {
@@ -161,6 +216,7 @@ export default class View {
             setTimeout(() => alertDiv.remove(), 3000);
         }
     }
+
 
 
 

@@ -40,6 +40,7 @@ export default class Controller {
     }
 
     async handleSubmitBook(libro) {
+        console.log('¿Guardar o Actualizar?:', libro);
         const pages = Number(libro.pages);
         const price = Number(libro.price);
 
@@ -49,16 +50,34 @@ export default class Controller {
             return false;
         }
         try {
-            const nuevoLibro = await this.model.libros.addBook(libro);
+            if (this.view.textoForm.textContent === "AÑADIR LIBRO") {
+                console.log("Ha entrado ha crear el libro nuevo");
+                const nuevoLibro = await this.model.libros.addBook(libro);
 
-            if (!nuevoLibro) {
-                this.view.renderMessage("error", "Error al añadir el libro");
+                if (!nuevoLibro) {
+                    this.view.renderMessage("error", "Error al añadir el libro");
+                    return false;
+                }
+
+                this.view.renderNewBook(nuevoLibro);
+                this.view.renderMessage("info", "Libro añadido correctamente");
+                return true;
+            } else if (this.view.textoForm.textContent === "ACTUALIZAR LIBRO") {
+
+                libro.id = this.view.idOculta.value;
+
+                const libroActualizado = await this.model.libros.changeBook(libro);
+                this.view.renderNewBook(libroActualizado);
+
+                this.view.renderMessage("info", "Libro editado correctamente");
+                this.view.resetGuarda();
+                return true;
+            } else {
                 return false;
             }
 
-            this.view.renderNewBook(nuevoLibro);
-            this.view.renderMessage("info", "Libro añadido correctamente");
-            return true;
+
+
 
         } catch (error) {
             this.view.renderMessage("error", error);
@@ -86,7 +105,6 @@ export default class Controller {
 
             console.log("Tamaño del carrito después de eliminar:", this.model.card.data.length);
 
-
             this.view.renderMessage("info", "Libro eliminado correctamente");
             return true;
         } catch (error) {
@@ -97,7 +115,6 @@ export default class Controller {
 
     handleResetForm() {
         this.view.resetForm();
-
     }
 
     async handleSubmitShoppingCart(idLibro) {
@@ -124,16 +141,10 @@ export default class Controller {
 
             if (!libro) {
                 this.view.renderMessage("error", "Libro no encontrado");
-                return;
+                return false;
             }
-
-            this.view.RellenarLibroForm(libro);
-
-            await this.model.libros.changeBook(libroActulizado);
-
-            document.getElementById("editorial")?.focus();
-
-            this.view.renderMessage("info", "Libro editado correctamente");
+            console.log("Libro que se va a editar" + libro.id);
+            this.view.obtenerDatosFormulario(libro);
             return true;
         } catch (error) {
             this.view.renderMessage("error", error.message || "Error inesperado al editar el libro");

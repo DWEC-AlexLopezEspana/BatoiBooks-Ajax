@@ -21,7 +21,7 @@ document.querySelector('#app').innerHTML = `
       <div id="list"></div>
       <div id="form">
         <form>
-            <h2 class="tituloForm">AÑADIR LIBRO</h2>
+            <h2 class="tituloForm" id="textoForm">AÑADIR LIBRO</h2>
             <div class="divOculto">
               <label for="id">ID Libro:</label>
               <input type="text" id="idLibroBorrado" name="idLibroBorrado"/>

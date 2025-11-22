@@ -43,6 +43,7 @@ export default class Books {
     }
 
     async changeBook(libroActualizar) {
+        console.log('libroActualizar:', libroActualizar); 
         try {
             let libroModificado = await BookApi.changeDBBook(libroActualizar);
             let libro = new Book(libroModificado);
