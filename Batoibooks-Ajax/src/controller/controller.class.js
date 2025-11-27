@@ -62,7 +62,7 @@ export default class Controller {
                 this.view.renderNewBook(nuevoLibro);
                 this.view.renderMessage("info", "Libro añadido correctamente");
                 return true;
-            } else if (this.view.textoForm.textContent === "ACTUALIZAR LIBRO") {
+            } else{
 
                 libro.id = this.view.idOculta.value;
 
@@ -70,14 +70,9 @@ export default class Controller {
                 this.view.renderNewBook(libroActualizado);
 
                 this.view.renderMessage("info", "Libro editado correctamente");
-                this.view.resetGuarda();
+                this.view.restablecerVacioForm();
                 return true;
-            } else {
-                return false;
             }
-
-
-
 
         } catch (error) {
             this.view.renderMessage("error", error);

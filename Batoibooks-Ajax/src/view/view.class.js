@@ -107,14 +107,10 @@ export default class View {
     }
 
     resetGuarda() {
-        formGuarda.addEventListener("click", () =>{
-            this.form.reset();
-        })
     }
 
     restablecerVacioForm() {
-        console.log("Ha entrado a borrar los datos")
-        this.form.reset();
+        this.textoForm.textContent = "AÑADIR LIBRO";
 
         this.idOculta.value = "";
 
@@ -127,11 +123,6 @@ export default class View {
         statusRadios.forEach(radio => radio.checked = false);
 
         this.comments.value = "";
-
-        this.textoForm.textContent = "AÑADIR LIBRO";
-
-        console.log("Se ha vaciado todo");
-
     }
 
 

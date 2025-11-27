@@ -2194,14 +2194,11 @@
     },
     {
       "id": "27cf",
-      "userId": 2,
-      "moduleCode": "ABCD",
+      "moduleCode": "0013",
       "publisher": "Apunts",
-      "price": 34,
-      "pages": 76,
+      "price": "60",
+      "pages": "200",
       "status": "bad",
-      "soldDate": "2023-03-25",
-      "photo": "https://via.placeholder.com/150",
       "comments": "Muy buen estado"
     },
     {
@@ -2214,6 +2211,33 @@
       "status": "bad",
       "soldDate": "2023-03-25",
       "photo": "https://via.placeholder.com/150",
+      "comments": "Muy buen estado"
+    },
+    {
+      "id": "2a09",
+      "moduleCode": "0013",
+      "publisher": "Apunts",
+      "price": "90",
+      "pages": "200",
+      "status": "bad",
+      "comments": "Muy buen estado"
+    },
+    {
+      "id": "9a3b",
+      "moduleCode": "0013",
+      "publisher": "Apunts",
+      "price": "30",
+      "pages": "200",
+      "status": "bad",
+      "comments": "Muy buen estado"
+    },
+    {
+      "id": "3a09",
+      "moduleCode": "0018",
+      "publisher": "Apunts",
+      "price": "100",
+      "pages": "150",
+      "status": "bad",
       "comments": "Muy buen estado"
     }
   ]
