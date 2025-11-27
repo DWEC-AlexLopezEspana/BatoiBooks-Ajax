@@ -14,25 +14,47 @@ export default class View {
         this.formReset = document.getElementById("btnReset");
         this.formGuarda = document.getElementById("btnGuarda");
 
+        //Errores
+        this.errorEditorial = document.getElementById("errorEditorial");
+        this.errorPaginas = document.getElementById("errorPaginas");
+        this.errorPrecio = document.getElementById("errorPrecio");
+        this.errorModule = document.getElementById("errorModule");
+        this.errorEstado = document.getElementById("errorEstado");
+
     }
 
-    setBookSubmitHandler(callback) {//
+    setBookSubmitHandler(callback) {
+        
         if (!this.form) return;
+
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const dato = {
-                id: document.getElementById("id")?.value,
-                userId: document.getElementById("userId")?.value,
-                moduleCode: document.querySelector("#module-code")?.value,
-                publisher: document.getElementById("editorial")?.value,
-                price: document.getElementById("price")?.value,
-                pages: document.getElementById("pages")?.value,
-                status: document.querySelector('input[name="status"]:checked')?.value,
-                photo: document.getElementById("photo")?.value,
-                comments: document.getElementById("comments")?.value,
-                soldDate: document.getElementById("soldDate")?.value,
-            };
-            callback(dato);
+            if (!this.form.checkValidity) {
+
+                this.renderMessage("error", "Corrige los errores en el formulario.");
+                this.errorEditorial.textContent = this.editorial?.validationMessage || "";
+                this.errorPaginas.textContent = this.pages?.validationMessage || "";
+                this.errorPrecio.textContent = this.price?.validationMessage || "";
+                this.errorModule.textContent = this.moduleCode?.validationMessage || "";
+                this.errorEstado.textContent = this.status?.validationMessage || "Selecciona un estado";
+                
+
+                console.log("Error Mostrar :" + this.editorial.validationMessage);
+            } else {
+                const dato = {
+                    id: document.getElementById("id")?.value,
+                    userId: document.getElementById("userId")?.value,
+                    moduleCode: document.querySelector("#module-code")?.value,
+                    publisher: document.getElementById("editorial")?.value,
+                    price: document.getElementById("price")?.value,
+                    pages: document.getElementById("pages")?.value,
+                    status: document.querySelector('input[name="status"]:checked')?.value,
+                    photo: document.getElementById("photo")?.value,
+                    comments: document.getElementById("comments")?.value,
+                    soldDate: document.getElementById("soldDate")?.value,
+                };
+                callback(dato);
+            }
 
         });
 
@@ -63,11 +85,26 @@ export default class View {
 
     renderEditBook(callback) {
         this.contenedorLibros?.addEventListener("click", (e) => {
-            const btnEdit = e.target.closest(".edit");
+            if (!this.form.checkValidity()) {
+                e.preventDefault();
+                this.renderMessage("error", "Corrige los errores en el formulario.");
+                this.errorEditorial.textContent = this.editorial.validationMessage;
+                this.errorPaginas.textContent = this.pages.validationMessage;
+                this.errorPrecio.textContent = this.price.validationMessage;
+                this.errorModule.textContent = this.moduleCode.validationMessage;
+                this.errorEstado.textContent = this.status.validationMessage;
 
-            if (!btnEdit) return;
-            const idLibro = btnEdit.dataset.id;
-            callback(idLibro);
+                console.log("Error Mostrar :" + this.editorial.validationMessage);
+            } else {
+
+
+                const btnEdit = e.target.closest(".edit");
+
+
+                if (!btnEdit) return;
+                const idLibro = btnEdit.dataset.id;
+                callback(idLibro);
+            }
         })
 
 
@@ -105,10 +142,6 @@ export default class View {
             this.form.reset();
         })
     }
-
-    resetGuarda() {
-    }
-
     restablecerVacioForm() {
         this.textoForm.textContent = "AÑADIR LIBRO";
 

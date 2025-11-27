@@ -20,7 +20,7 @@ document.querySelector('#app').innerHTML = `
     </div>
       <div id="list"></div>
       <div id="form">
-        <form>
+        <form novalidate>
             <h2 class="tituloForm" id="textoForm">AÑADIR LIBRO</h2>
             <div class="divOculto">
               <label for="id">ID Libro:</label>
@@ -29,10 +29,12 @@ document.querySelector('#app').innerHTML = `
           <div>
             <label for="editorial">Editorial:</label>
             <input type="text" id="editorial" name="editorial" required />
+            <span id="errorEditorial"></span>
           </div>
           <div>
             <label for="pages">Páginas:</label>
-            <input type="number" id="pages" name="pages" required min="1" />
+            <input type="number" id="pages" name="pages" required min="0" step="1"/>
+            <span id="errorPaginas"></span>
           </div>
           <div>
             <label for="price">Precio (€):</label>
@@ -44,10 +46,12 @@ document.querySelector('#app').innerHTML = `
               required
               min="0"
             />
+            <span id="errorPrecio"></span>
           </div>
           <div>
             <label for="moduleId">Módulo:</label>
             <select id="module-code" name="moduleId" required></select>
+            <span id="errorModule"></span>
           </div>
           <div>
             <label>Estado:</label>
@@ -56,6 +60,7 @@ document.querySelector('#app').innerHTML = `
               Bueno</label
             >
             <label><input type="radio" name="status" value="bad" /> Malo</label>
+            <span id="errorEstado"></span>
           </div>
           <div>
             <label for="comments">Comentarios:</label>

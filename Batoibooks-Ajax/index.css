@@ -47,7 +47,7 @@ nav {
   background: #2563eb;
   border-radius: 12px;
   margin-bottom: 2rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 nav ul {
@@ -69,7 +69,7 @@ nav a {
 
 nav a:hover {
   background-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 /* ====== MENSAJES ====== */
@@ -79,7 +79,7 @@ nav a:hover {
   border-left: 5px solid #2563eb;
   border-radius: 12px;
   margin-bottom: 2rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   text-align: center;
   font-style: italic;
 }
@@ -93,11 +93,11 @@ form {
   padding: 2rem;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-.divOculto{
- display: none;
+.divOculto {
+  display: none;
 }
 
 form label {
@@ -122,7 +122,7 @@ form input:focus,
 form select:focus,
 form textarea:focus {
   border-color: #2563eb;
-  box-shadow: 0 0 10px rgba(37,99,235,0.3);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
   outline: none;
 }
 
@@ -143,7 +143,7 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
   background-color: #1d4ed8;
-  box-shadow: 0 6px 18px rgba(29,78,216,0.4);
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.4);
 }
 
 form button[type="reset"] {
@@ -153,17 +153,30 @@ form button[type="reset"] {
 
 form button[type="reset"]:hover {
   background-color: #b91c1c;
-  box-shadow: 0 6px 18px rgba(185,28,28,0.4);
+  box-shadow: 0 6px 18px rgba(185, 28, 28, 0.4);
 }
 
-.tituloForm{
+.tituloForm {
   text-align: center;
 }
 
-.precio{
+.precio {
   font-weight: bold;
-  color:rgba(0, 0, 255, 0.788);
+  color: rgba(0, 0, 255, 0.788);
   font-size: 18px;
+}
+
+
+#errorEditorial,
+#errorPaginas,
+#errorPrecio,
+#errorModule,
+#errorEstado {
+  color: red;
+}
+
+form input:invalid {
+  border: 1px dashed red;
 }
 
 /* ====== LISTA DE LIBROS ====== */
@@ -178,7 +191,7 @@ form button[type="reset"]:hover {
 .card {
   background: linear-gradient(145deg, #ffffff, #f0f4f8);
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   padding: 1rem;
@@ -186,7 +199,7 @@ form button[type="reset"]:hover {
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 14px 35px rgba(0,0,0,0.15);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
 }
 
 .card-body {
@@ -223,7 +236,7 @@ form button[type="reset"]:hover {
   margin-top: 12px;
 }
 
-.shopping{
+.shopping {
   background-color: rgb(120, 194, 219);
 }
 
@@ -231,7 +244,7 @@ form button[type="reset"]:hover {
   box-shadow: 0 6px 18px rgba(28, 122, 185, 0.4);
 }
 
-.edit{
+.edit {
   background-color: rgb(94, 228, 94);
 }
 
@@ -239,11 +252,12 @@ form button[type="reset"]:hover {
   box-shadow: 0 6px 18px rgba(59, 185, 28, 0.4);
 }
 
-.delete{
+.delete {
   background-color: lightcoral;
 }
+
 .delete:hover {
-  box-shadow: 0 6px 18px rgba(185,28,28,0.4);
+  box-shadow: 0 6px 18px rgba(185, 28, 28, 0.4);
 }
 
 /* ====== SECCIÓN ELIMINAR LIBRO ====== */
@@ -253,7 +267,7 @@ form button[type="reset"]:hover {
   padding: 1.5rem;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 #remove label {
@@ -280,7 +294,7 @@ form button[type="reset"]:hover {
 
 #remove button:hover {
   background: #b91c1c;
-  box-shadow: 0 4px 12px rgba(185,28,28,0.4);
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4);
 }
 
 /* ====== FOOTER ====== */
