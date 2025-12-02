@@ -1,7 +1,8 @@
 export default class View {
     constructor() {
         this.contenedorLibros = document.getElementById("list");
-        this.form = document.getElementById("form");
+        this.contenedorCarrito = document.getElementById("cart");
+        this.form = document.querySelector("#form form");
         this.SeleccionModulos = document.getElementById("module-code");
         this.messages = document.getElementById("messages");
         this.idOculta = document.getElementById("idLibroBorrado");
@@ -12,7 +13,7 @@ export default class View {
         this.comments = document.getElementById("comments");
         this.textoForm = document.getElementById("textoForm");
         this.formReset = document.getElementById("btnReset");
-        this.formGuarda = document.getElementById("btnGuarda");
+        this.formGuarda = document.getElementById("btnGuardar");
 
         //Errores
         this.errorEditorial = document.getElementById("errorEditorial");
@@ -24,20 +25,23 @@ export default class View {
     }
 
     setBookSubmitHandler(callback) {
-        
+
         if (!this.form) return;
 
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (!this.form.checkValidity) {
+            if (!this.form.checkValidity()) {
 
                 this.renderMessage("error", "Corrige los errores en el formulario.");
+
                 this.errorEditorial.textContent = this.editorial?.validationMessage || "";
                 this.errorPaginas.textContent = this.pages?.validationMessage || "";
                 this.errorPrecio.textContent = this.price?.validationMessage || "";
-                this.errorModule.textContent = this.moduleCode?.validationMessage || "";
-                this.errorEstado.textContent = this.status?.validationMessage || "Selecciona un estado";
-                
+                this.errorModule.textContent = this.SeleccionModulos?.validationMessage || "";
+
+                // Para status, no tiene validationMessage, se puede hacer así:
+                const statusInput = this.form.querySelector('input[name="status"]:checked');
+                this.errorEstado.textContent = statusInput ? "" : "Selecciona un estado";
 
                 console.log("Error Mostrar :" + this.editorial.validationMessage);
             } else {
@@ -73,10 +77,12 @@ export default class View {
     }
 
     renderSubmitShoppingCart(callback) {
+        
         this.contenedorLibros?.addEventListener("click", (e) => {
             const btnAddCart = e.target.closest(".shopping");
             if (!btnAddCart) return;
             const idLibro = btnAddCart.dataset.id;
+            console.log("Producto recibido"+ idLibro);
             callback(idLibro);
         })
 
@@ -91,8 +97,10 @@ export default class View {
                 this.errorEditorial.textContent = this.editorial.validationMessage;
                 this.errorPaginas.textContent = this.pages.validationMessage;
                 this.errorPrecio.textContent = this.price.validationMessage;
-                this.errorModule.textContent = this.moduleCode.validationMessage;
-                this.errorEstado.textContent = this.status.validationMessage;
+                this.errorModule.textContent = this.SeleccionModulos?.validationMessage;
+                const statusInput = this.form.querySelector('input[name="status"]:checked');
+                this.errorEstado.textContent = statusInput ? "" : "Selecciona un estado";
+
 
                 console.log("Error Mostrar :" + this.editorial.validationMessage);
             } else {
@@ -157,7 +165,6 @@ export default class View {
 
         this.comments.value = "";
     }
-
 
     renderNewBook(prod) {
         if (!this.contenedorLibros || !prod.id) return;
