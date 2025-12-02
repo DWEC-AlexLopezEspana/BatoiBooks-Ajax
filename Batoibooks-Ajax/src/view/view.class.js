@@ -1,7 +1,6 @@
 export default class View {
     constructor() {
         this.contenedorLibros = document.getElementById("list");
-        this.contenedorCarrito = document.getElementById("cart");
         this.form = document.querySelector("#form form");
         this.SeleccionModulos = document.getElementById("module-code");
         this.messages = document.getElementById("messages");
