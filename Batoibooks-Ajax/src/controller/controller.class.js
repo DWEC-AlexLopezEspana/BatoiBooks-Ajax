@@ -50,7 +50,7 @@ export default class Controller {
             return false;
         }
         try {
-            if (this.view.textoForm.textContent === "AÑADIR LIBRO") {
+            if (this.view.textoForm.textContent === "AÑADIR LIBRO" || !this.view.idOculta) {
                 console.log("Ha entrado ha crear el libro nuevo");
                 const nuevoLibro = await this.model.libros.addBook(libro);
 
