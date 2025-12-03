@@ -1,8 +1,10 @@
 export default class View {
     constructor() {
         this.contenedorLibros = document.getElementById("list");
+        this.contenedorCarrito = document.getElementById("cart");
         this.form = document.querySelector("#form form");
         this.SeleccionModulos = document.getElementById("module-code");
+        
         this.messages = document.getElementById("messages");
         this.idOculta = document.getElementById("idLibroBorrado");
         this.editorial = document.getElementById("editorial");
@@ -163,6 +165,38 @@ export default class View {
         statusRadios.forEach(radio => radio.checked = false);
 
         this.comments.value = "";
+    }
+
+
+    renderCarrito(prod) {
+        console.log("Producto recibido"+ prod.id);
+        if (!this.contenedorCarrito || !prod.id) return;
+        const existe = this.contenedorCarrito.querySelector(`[data-id="${prod.id}"]`);
+        const vendidoText = prod.soldDate
+            ? `Vendido el ${new Date(prod.soldDate).toLocaleDateString()}`
+            : "En venta";
+
+        const html = `
+        <h3>Módulo: ${prod.moduleCode} </h3>
+        <p class="book-id"> ID: ${prod.id}</p>
+        <h4>${prod.publisher}</h4>
+        <p>${prod.pages} páginas</p>
+        <p>Estado: ${prod.status}</p>
+        <p>${vendidoText}</p>
+        <p class="precio">${Number(prod.price).toFixed(2)} €</p>
+        <button class="delete" data-id="${prod.id}">
+            <span class="material-icons">delete</span>
+        </button>
+        `;
+
+        if (!existe) {
+            const div = document.createElement("div");
+            div.className = "card";
+            div.dataset.id = prod.id;
+            div.innerHTML = html;
+            this.contenedorCarrito.appendChild(div);
+        }
+
     }
 
     renderNewBook(prod) {
