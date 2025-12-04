@@ -50,7 +50,9 @@ export default class Controller {
             return false;
         }
         try {
-            if (this.view.textoForm.textContent === "AÑADIR LIBRO" || !this.view.idOculta) {
+            const idActual = (this.view.idOculta?.value || "").trim();
+
+            if (!idActual) {
                 console.log("Ha entrado ha crear el libro nuevo");
                 const nuevoLibro = await this.model.libros.addBook(libro);
 
@@ -61,10 +63,11 @@ export default class Controller {
 
                 this.view.renderNewBook(nuevoLibro);
                 this.view.renderMessage("info", "Libro añadido correctamente");
+                this.view.restablecerVacioForm();
                 return true;
-            } else{
+            } else {
 
-                libro.id = this.view.idOculta.value;
+                libro.id = idActual;
 
                 const libroActualizado = await this.model.libros.changeBook(libro);
                 this.view.renderNewBook(libroActualizado);
@@ -110,6 +113,7 @@ export default class Controller {
 
     handleResetForm() {
         this.view.resetForm();
+
     }
 
     async handleSubmitShoppingCart(idLibro) {

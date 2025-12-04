@@ -1,10 +1,8 @@
 export default class View {
     constructor() {
         this.contenedorLibros = document.getElementById("list");
-        this.contenedorCarrito = document.getElementById("cart");
         this.form = document.querySelector("#form form");
         this.SeleccionModulos = document.getElementById("module-code");
-        
         this.messages = document.getElementById("messages");
         this.idOculta = document.getElementById("idLibroBorrado");
         this.editorial = document.getElementById("editorial");
@@ -26,41 +24,30 @@ export default class View {
     }
 
     setBookSubmitHandler(callback) {
-
         if (!this.form) return;
-
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             if (!this.form.checkValidity()) {
-
                 this.renderMessage("error", "Corrige los errores en el formulario.");
-
-                this.errorEditorial.textContent = this.editorial?.validationMessage || "";
-                this.errorPaginas.textContent = this.pages?.validationMessage || "";
-                this.errorPrecio.textContent = this.price?.validationMessage || "";
-                this.errorModule.textContent = this.SeleccionModulos?.validationMessage || "";
-
-                // Para status, no tiene validationMessage, se puede hacer así:
-                const statusInput = this.form.querySelector('input[name="status"]:checked');
-                this.errorEstado.textContent = statusInput ? "" : "Selecciona un estado";
-
-                console.log("Error Mostrar :" + this.editorial.validationMessage);
-            } else {
-                const dato = {
-                    id: document.getElementById("id")?.value,
-                    userId: document.getElementById("userId")?.value,
-                    moduleCode: document.querySelector("#module-code")?.value,
-                    publisher: document.getElementById("editorial")?.value,
-                    price: document.getElementById("price")?.value,
-                    pages: document.getElementById("pages")?.value,
-                    status: document.querySelector('input[name="status"]:checked')?.value,
-                    photo: document.getElementById("photo")?.value,
-                    comments: document.getElementById("comments")?.value,
-                    soldDate: document.getElementById("soldDate")?.value,
-                };
-                callback(dato);
+                return;
             }
-
+            const dato = {
+                id: document.getElementById("id")?.value,
+                userId: document.getElementById("userId")?.value,
+                moduleCode: document.querySelector("#module-code")?.value,
+                publisher: document.getElementById("editorial")?.value,
+                price: document.getElementById("price")?.value,
+                pages: document.getElementById("pages")?.value,
+                status: document.querySelector('input[name="status"]:checked')?.value,
+                photo: document.getElementById("photo")?.value,
+                comments: document.getElementById("comments")?.value,
+                soldDate: document.getElementById("soldDate")?.value,
+            };
+            if (!dato.moduleCode || !dato.publisher || !dato.status) {
+                this.renderMessage("error", "Faltan campos obligatorios.");
+                return;
+            }
+            callback(dato);
         });
 
     }
@@ -78,12 +65,12 @@ export default class View {
     }
 
     renderSubmitShoppingCart(callback) {
-        
+
         this.contenedorLibros?.addEventListener("click", (e) => {
             const btnAddCart = e.target.closest(".shopping");
             if (!btnAddCart) return;
             const idLibro = btnAddCart.dataset.id;
-            console.log("Producto recibido"+ idLibro);
+            console.log("Producto recibido" + idLibro);
             callback(idLibro);
         })
 
@@ -92,35 +79,15 @@ export default class View {
 
     renderEditBook(callback) {
         this.contenedorLibros?.addEventListener("click", (e) => {
-            if (!this.form.checkValidity()) {
-                e.preventDefault();
-                this.renderMessage("error", "Corrige los errores en el formulario.");
-                this.errorEditorial.textContent = this.editorial.validationMessage;
-                this.errorPaginas.textContent = this.pages.validationMessage;
-                this.errorPrecio.textContent = this.price.validationMessage;
-                this.errorModule.textContent = this.SeleccionModulos?.validationMessage;
-                const statusInput = this.form.querySelector('input[name="status"]:checked');
-                this.errorEstado.textContent = statusInput ? "" : "Selecciona un estado";
-
-
-                console.log("Error Mostrar :" + this.editorial.validationMessage);
-            } else {
-
-
-                const btnEdit = e.target.closest(".edit");
-
-
-                if (!btnEdit) return;
-                const idLibro = btnEdit.dataset.id;
-                callback(idLibro);
-            }
+            const btnEdit = e.target.closest(".edit");
+            if (!btnEdit) return;
+            e.preventDefault();
+            const idLibro = btnEdit.dataset.id;
+            callback(idLibro);
         })
-
-
     }
     obtenerDatosFormulario(libro) {
         console.log("Libro ha entrado a editar y el libro es el siguiente: " + libro);
-        this.textoForm.textContent = "ACTUALIZAR LIBRO";
         this.idOculta.value = libro.id;
         this.editorial.value = libro.publisher;
         this.pages.value = libro.pages || 0;
@@ -152,8 +119,6 @@ export default class View {
         })
     }
     restablecerVacioForm() {
-        this.textoForm.textContent = "AÑADIR LIBRO";
-
         this.idOculta.value = "";
 
         this.editorial.value = "";
@@ -165,38 +130,6 @@ export default class View {
         statusRadios.forEach(radio => radio.checked = false);
 
         this.comments.value = "";
-    }
-
-
-    renderCarrito(prod) {
-        console.log("Producto recibido"+ prod.id);
-        if (!this.contenedorCarrito || !prod.id) return;
-        const existe = this.contenedorCarrito.querySelector(`[data-id="${prod.id}"]`);
-        const vendidoText = prod.soldDate
-            ? `Vendido el ${new Date(prod.soldDate).toLocaleDateString()}`
-            : "En venta";
-
-        const html = `
-        <h3>Módulo: ${prod.moduleCode} </h3>
-        <p class="book-id"> ID: ${prod.id}</p>
-        <h4>${prod.publisher}</h4>
-        <p>${prod.pages} páginas</p>
-        <p>Estado: ${prod.status}</p>
-        <p>${vendidoText}</p>
-        <p class="precio">${Number(prod.price).toFixed(2)} €</p>
-        <button class="delete" data-id="${prod.id}">
-            <span class="material-icons">delete</span>
-        </button>
-        `;
-
-        if (!existe) {
-            const div = document.createElement("div");
-            div.className = "card";
-            div.dataset.id = prod.id;
-            div.innerHTML = html;
-            this.contenedorCarrito.appendChild(div);
-        }
-
     }
 
     renderNewBook(prod) {
