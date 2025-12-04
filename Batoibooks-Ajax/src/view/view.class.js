@@ -226,7 +226,7 @@ export default class View {
             c.error.textContent = c.input.validationMessage;
         });
 
-        const status = this.form.querySelector();
+        const status = this.form.querySelector('input[name="status"]:checked');
         this.errorEstado.textContent = status ? "": "Debes Seleccionar un estado";
     }
 
