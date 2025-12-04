@@ -27,6 +27,7 @@ export default class View {
         if (!this.form) return;
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
+            this.mostrarErrores();
             if (!this.form.checkValidity()) {
                 this.renderMessage("error", "Corrige los errores en el formulario.");
                 return;
@@ -212,6 +213,21 @@ export default class View {
         if (type.toLowerCase().trim() !== "error") {
             setTimeout(() => alertDiv.remove(), 3000);
         }
+    }
+
+    mostrarErrores() {
+        const campos = [
+            {input:this.SeleccionModulos, error: this.errorModule},
+            {input:this.editorial, error:this.errorEditorial},
+            {input:this.price, error:this.errorPrecio},
+            {input:this.pages, error:this.errorPaginas}
+        ];
+        campos.forEach(c => {
+            c.error.textContent = c.input.validationMessage;
+        });
+
+        const status = this.form.querySelector();
+        this.errorEstado.textContent = status ? "": "Debes Seleccionar un estado";
     }
 
 
