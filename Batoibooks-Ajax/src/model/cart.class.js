@@ -3,6 +3,7 @@ import Book from "./book.class";
 export default class Card {
     constructor() {
         this.data = [];
+        this.loadFromLocalStorage();
     }
 
     async populate() {
@@ -21,6 +22,7 @@ export default class Card {
             throw new Error(`El libro con id ${libro.id} ya está en el carrito`);
         }
         this.data.push({ ...libro });
+        this.saveToLocalStorage();
     }
 
     async removeItem(idLibro) {
@@ -30,7 +32,24 @@ export default class Card {
             throw new Error(`No se encontró ningún libro con la id ${idLibro} en el carrito`);
         }
         this.data.splice(existe, 1);
+        this.saveToLocalStorage();
 
+    }
+
+    saveToLocalStorage(){
+        localStorage.setItem("carritoLibros", JSON.stringify(this.data));
+    }
+
+    loadFromLocalStorage(){
+        const storage = localStorage.getItem("carritoLibros");
+        if(storage){
+            try {
+                this.data = JSON.parse(storage);
+            } catch (error) {
+                this.data = [];
+                return "Error al cargar el carrito desde localStorage";
+            }
+        }
     }
 
     toString() {

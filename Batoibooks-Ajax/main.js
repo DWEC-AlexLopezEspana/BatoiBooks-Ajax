@@ -10,6 +10,7 @@ document.querySelector('#app').innerHTML = `
    <nav>
       <ul>
         <li><a href="#list">Ver Libros</a></li>
+        <li><a href="#cart">Carrito</a></li>
         <li><a href="#form">Añadir Libro</a></li>
         <li><a href="#about">Acerca de...</a></li>
       </ul>
@@ -19,6 +20,13 @@ document.querySelector('#app').innerHTML = `
       <p>Abre la consola para ver el funcionamiento de la aplicación.</p>
     </div>
       <div id="list"></div>
+      <div id="contenedorCarrito">
+        <h2 class="tituloForm">CARRITO DE LIBROS</h2>
+        <div id="cart">
+        </div>
+        <button type="submit" id="btnRealizarPedido">Relizar Pedido</button>
+        <button type="reset" id="btnResetCarrito">Borrar Carrito</button>
+      </div>
       <div id="form">
         <form novalidate>
             <h2 class="tituloForm" id="textoForm">AÑADIR / ACTUALIZAR LIBRO</h2>

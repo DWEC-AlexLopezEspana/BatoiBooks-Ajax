@@ -20,6 +20,9 @@ export default class Controller {
         this.view.setBookRemoveHandler(this.handleRemoveBook.bind(this));
         this.view.renderSubmitShoppingCart(this.handleSubmitShoppingCart.bind(this));
         this.view.renderEditBook(this.handleEditBook.bind(this));
+        this.view.renderRemoveShopBook(this.handleRemoveShopBook.bind(this))
+        this.view.realizarPedidoShop(this.handlerRealizarPedido.bind(this));
+        this.view.vaciadoPedidoShop(this.handlerVaciarPedido.bind(this));
 
         try {
             await Promise.all([
@@ -35,6 +38,7 @@ export default class Controller {
 
         this.view.renderModulesInSelect(this.model.modulos.data);
         this.model.libros.data.forEach(book => this.view.renderNewBook(book));
+        this.model.card.data.forEach(shop => this.view.renderNewShopBook(shop));
         console.log("Tamaño carrito " + (this.model.card.data.length));
 
     }
@@ -84,6 +88,26 @@ export default class Controller {
 
     }
 
+    async handleSubmitShoppingCart(idLibro) {
+        try {
+            console.log("Ha entrado en el de añadir del controller:", idLibro);
+            console.log("Tamaño carrito ANTES:", this.model.card.data.length);
+
+            const libro = await this.model.libros.getBookById(idLibro);
+            await this.model.card.addItem(libro);
+            console.log("Tamaño carrito DESPUÉS:", this.model.card.data.length);
+            this.view.renderMessage("info", "Libro añadido al carrito correctamente");
+            alert(`Se ha añadido el libro ${idLibro} al carrito.`);
+            this.view.renderNewShopBook(libro);
+            return true;
+
+        } catch (error) {
+            this.view.renderMessage("error", error);
+            return false;
+        }
+
+    }
+
     async handleRemoveBook(idLibro) {
         try {
             const libroEliminado = await this.model.libros.removeBook(idLibro);
@@ -110,30 +134,27 @@ export default class Controller {
             return false;
         }
     }
-
-    handleResetForm() {
-        this.view.resetForm();
-
-    }
-
-    async handleSubmitShoppingCart(idLibro) {
+    async handleRemoveShopBook(idLibro) {
         try {
-            console.log("Ha entrado en el de añadir del controller:", idLibro);
-            console.log("Tamaño carrito ANTES:", this.model.card.data.length);
-
-            const libro = await this.model.libros.getBookById(idLibro);
-            await this.model.card.addItem(libro);
-            console.log("Tamaño carrito DESPUÉS:", this.model.card.data.length);
-            this.view.renderMessage("info", "Libro añadido al carrito correctamente");
-            alert(`Se ha añadido el libro ${idLibro} al carrito.`);
+            console.log("Libro borrar del carrito:" + idLibro);
+            const libroCarrito = await this.model.card.getBookById(idLibro);
+            if (libroCarrito.id) {
+                await this.model.card.removeItem(idLibro);
+                const cardElement = this.view.contenedorShopLibros?.querySelector(`[data-id="${idLibro}"]`);
+                if (cardElement) {
+                    cardElement.remove();
+                }
+            }
+            this.view.renderMessage("info", "Libro eliminado correctamente");
             return true;
-
         } catch (error) {
-            this.view.renderMessage("error", error);
+            console.error("Error al eliminar libro:", error);
+            this.view.renderMessage("error", "No se pudo eliminar el libro");
             return false;
         }
 
     }
+
     async handleEditBook(idLibro) {
         try {
             const libro = await this.model.libros.getBookById(idLibro);
@@ -151,4 +172,49 @@ export default class Controller {
         }
 
     }
+
+    handleResetForm() {
+        this.view.resetForm();
+    }
+
+    async handlerRealizarPedido(librosEnCarrito) {
+        if (!librosEnCarrito || librosEnCarrito.length === 0) return;
+        const respuesta = confirm("¿Desea realizar el pedido de los libros del carrito?");
+        if (!respuesta) return;
+
+        const ids = librosEnCarrito.map(libro => libro.dataset.id);
+        var precioTotal = 0;
+
+        for (const libro of librosEnCarrito) {
+            const id = libro.dataset.id;
+            const libPrecio = this.model.libros.getBookById(id);
+            precioTotal += libPrecio.price;
+            await this.model.card.removeItem(id);
+            libro.remove();
+        }
+        this.model.card.data = [];
+        console.log("Precios a mostrar:" + precioTotal);
+
+        alert("Vas a realizar el pedido de los libros: " + ids.join(", ") + "\n Precio Total: " + precioTotal + "€");
+        alert("Pedido realizado");
+    }
+
+    async handlerVaciarPedido(librosEnCarrito) {
+        if (!librosEnCarrito || librosEnCarrito.length === 0) return;
+        const respuesta = confirm("¿Desea vaciar el carrito de compra?");
+        if (!respuesta) return;
+
+        const ids = librosEnCarrito.map(div => div.dataset.id);
+        alert("Vas a realizar el pedido de los libros: " + ids.join(", "));
+
+        for (const libro of librosEnCarrito) {
+            const id = libro.dataset.id;
+            await this.model.card.removeItem(id);
+            libro.remove();
+        }
+        this.model.card.data = [];
+        alert("Se ha vaciado todo el carrito");
+
+    }
+
 }

@@ -2234,11 +2234,20 @@
     {
       "id": "ebdd",
       "moduleCode": "0046",
-      "publisher": "asdasdas",
+      "publisher": "asdasdasaasddddasddsa",
       "price": "3321",
       "pages": "1",
       "status": "good",
       "comments": "asdasd"
+    },
+    {
+      "id": "c176",
+      "moduleCode": "0013",
+      "publisher": "d2",
+      "price": "1",
+      "pages": "22",
+      "status": "good",
+      "comments": "asdasdas"
     }
   ]
 }

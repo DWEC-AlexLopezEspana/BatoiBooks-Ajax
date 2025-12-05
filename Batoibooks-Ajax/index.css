@@ -252,13 +252,122 @@ form input:invalid {
   box-shadow: 0 6px 18px rgba(59, 185, 28, 0.4);
 }
 
-.delete {
+.delete,
+.deleteShop {
   background-color: lightcoral;
 }
 
-.delete:hover {
+.delete:hover,
+.deleteShop:hover {
   box-shadow: 0 6px 18px rgba(185, 28, 28, 0.4);
 }
+
+/* ====== CARRITO DE LIBROS ====== */
+#contenedorCarrito {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #ffffff, #f0f4f8);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+#contenedorCarrito .tituloForm {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #2563eb;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* Contenedor interno que ahora es #cart */
+#cart {
+  margin-bottom: 1.5rem;
+}
+
+#cart .cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+#cart .cart-item {
+  background: linear-gradient(145deg, #ffffff, #eef3f7);
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#cart .cart-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+#cart .cart-info {
+  max-width: 70%;
+}
+
+#cart .cart-info h4 {
+  font-size: 1.2rem;
+  color: #1f2937;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+#cart .cart-info p {
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+#cart .cart-actions button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* Botones del carrito (ahora hijos directos de #contenedorCarrito) */
+#contenedorCarrito button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+#btnRealizarPedido {
+  background-color: #2563eb;
+  color: white;
+}
+
+#btnRealizarPedido:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.4);
+}
+
+#btnResetCarrito {
+  background-color: lightcoral;
+  color: white;
+}
+
+#btnResetCarrito:hover {
+ box-shadow: 0 6px 18px rgba(185, 28, 28, 0.4);
+}
+
 
 /* ====== SECCIÓN ELIMINAR LIBRO ====== */
 #remove {
